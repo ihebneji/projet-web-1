@@ -398,44 +398,52 @@
                                                 <div class="text-center">
                                                     <h1 class="h4 text-gray-900 mb-4">Add Travel Offer</h1>
                                                 </div>
-                                                <form class="user">
+                                                <form class="user" id="offerForm">
                                                     <div class="form-group">
                                                         <label for="title">Title</label>
-                                                        <input type="text" class="form-control form-control-user" id="title" placeholder="Enter Title" minlength="3" required>
+                                                        <input type="text" class="form-control form-control-user" id="title" name="title" placeholder="Enter Title" minlength="3" required>
                                                     </div>
+                                                
                                                     <div class="form-group">
                                                         <label for="destination">Destination</label>
-                                                        <input type="text" class="form-control form-control-user" id="destination" placeholder="Enter Destination" minlength="3" pattern="[A-Za-zÀ-ÖØ-öø-ÿ ]+" required>
+                                                        <input type="text" class="form-control form-control-user" id="destination" name="destination" placeholder="Enter Destination" minlength="3" pattern="[A-Za-zÀ-ÖØ-öø-ÿ ]+" required>
+                                                        <small class="form-text text-muted">Only letters and spaces allowed.</small>
                                                     </div>
+                                                
                                                     <div class="form-group">
                                                         <label for="departuredate">Departure Date</label>
-                                                        <input type="date" class="form-control form-control-user" id="departuredate" required>
+                                                        <input type="date" class="form-control form-control-user" id="departuredate" name="departuredate" required>
                                                     </div>
+                                                
                                                     <div class="form-group">
                                                         <label for="returndate">Return Date</label>
-                                                        <input type="date" class="form-control form-control-user" id="returndate" required>
+                                                        <input type="date" class="form-control form-control-user" id="returndate" name="returndate" required>
+                                                        <small id="dateError" class="text-danger d-none">Return date must be later than departure date.</small>
                                                     </div>
+                                                
                                                     <div class="form-group">
                                                         <label for="price">Price</label>
-                                                        <input type="number" class="form-control form-control-user" id="price" placeholder="Enter Price" min="0" step="0.01" required>
+                                                        <input type="number" class="form-control form-control-user" id="price" name="price" placeholder="Enter Price" min="0" step="0.01" required>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <div class="custom-control custom-checkbox small">
-                                                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                            <label class="custom-control-label" for="customCheck">Availability</label>
-                                                        </div>
+                                                
+                                                    <div class="form-group form-check">
+                                                        <input type="checkbox" class="form-check-input" id="availability" name="availability">
+                                                        <label class="form-check-label" for="availability">Available</label>
                                                     </div>
+                                                
                                                     <div class="form-group">
-                                                        <label for="options">Category :</label>
-                                                        <select id="options" class="form-control" required>
+                                                        <label for="options" class="fw-bold">Select a Category <span class="text-danger">*</span> :</label>
+                                                        <select id="options" name="category" class="form-control" aria-label="Category selection" required>
+                                                            <option value="" disabled selected>-- Choose a category --</option>
                                                             <option value="adventure">Adventure</option>
-                                                            <option value="beach">Beach</option>
-                                                            <option value="cultural">Cultural</option>
+                                                            <option value="nature">Nature</option>
+                                                            <option value="luxury">Luxury</option>
                                                         </select>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary btn-user btn-block">Add Offer</button>
-                                                </form>
+                                                    
                                                 
+                                                    <button type="submit" class="btn btn-primary btn-user btn-block">Add Offer</button>
+                                                </form> 
                                             </div>
                                         </div>
                                     </div>
@@ -447,7 +455,20 @@
                     </div>
             
                 </div>
-            
+                <script>
+                    document.getElementById("offerForm").addEventListener("submit", function(event) {
+                        const departureDate = new Date(document.getElementById("departuredate").value);
+                        const returnDate = new Date(document.getElementById("returndate").value);
+                        const dateError = document.getElementById("dateError");
+                    
+                        if (returnDate < departureDate) {
+                            dateError.classList.remove("d-none");
+                            event.preventDefault();
+                        } else {
+                            dateError.classList.add("d-none");
+                        }
+                    });
+                    </script>
                 <!-- Bootstrap core JavaScript-->
                 <script src="vendor/jquery/jquery.min.js"></script>
                 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
