@@ -390,42 +390,40 @@
             
                             <div class="card o-hidden border-0 shadow-lg my-5">
                                 <div class="card-body p-0">
-                                    <!-- Nested Row within Card Body -->
                                     <div class="row">
-                                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                                        <div class="col-lg-7">
                                             <div class="p-5">
                                                 <div class="text-center">
-                                                    <h1 class="h4 text-gray-900 mb-4">Add Travel Offer</h1>
+                                                    <h1 class="h4 text-gray-900 mb-4">Add a travel offer</h1>
                                                 </div>
-                                                <form class="user" id="offerForm">
+                                                <form class="user" onsubmit="return validerFormulaire()">
                                                     <div class="form-group">
                                                         <label for="title">Title</label>
-                                                        <input type="text" class="form-control form-control-user" id="title" name="title" placeholder="Enter Title" minlength="3" required>
+                                                        <input type="text" class="form-control form-control-user" id="title" placeholder="Title" minlength="3" required>
+                                                        <span id="title-error"></span>
                                                     </div>
-                                                
                                                     <div class="form-group">
                                                         <label for="destination">Destination</label>
-                                                        <input type="text" class="form-control form-control-user" id="destination" name="destination" placeholder="Enter Destination" minlength="3" pattern="[A-Za-zÀ-ÖØ-öø-ÿ ]+" required>
-                                                        <small class="form-text text-muted">Only letters and spaces allowed.</small>
+                                                        <input type="text" class="form-control form-control-user" id="destination" placeholder="Destination" pattern="[A-Za-zÀ-ÿ ]{3,}" required>
+                                                        <span id="destination-error"></span>
                                                     </div>
-                                                
                                                     <div class="form-group">
-                                                        <label for="departuredate">Departure Date</label>
-                                                        <input type="date" class="form-control form-control-user" id="departuredate" name="departuredate" required>
+                                                        <label for="departureDate">Departure Date</label>
+                                                        <input type="date" class="form-control form-control-user" id="departureDate" required>
+                                                        <span id="departureDate-error"></span>
                                                     </div>
-                                                
                                                     <div class="form-group">
-                                                        <label for="returndate">Return Date</label>
-                                                        <input type="date" class="form-control form-control-user" id="returndate" name="returndate" required>
-                                                        <small id="dateError" class="text-danger d-none">Return date must be later than departure date.</small>
+                                                        <label for="returnDate">Return Date</label>
+                                                        <input type="date" class="form-control form-control-user" id="returnDate" required>
+                                                        <span id="returnDate-error"></span>
                                                     </div>
-                                                
                                                     <div class="form-group">
                                                         <label for="price">Price</label>
-                                                        <input type="number" class="form-control form-control-user" id="price" name="price" placeholder="Enter Price" min="0" step="0.01" required>
+                                                        <input type="number" class="form-control form-control-user" id="price" placeholder="Price" min="0" step="0.01" required>
+                                                        <span id="price-error"></span>
                                                     </div>
-                                                
+                                                    
                                                     <div class="form-group form-check">
                                                         <input type="checkbox" class="form-check-input" id="availability" name="availability">
                                                         <label class="form-check-label" for="availability">Available</label>
@@ -440,21 +438,27 @@
                                                             <option value="luxury">Luxury</option>
                                                         </select>
                                                     </div>
-                                                    
-                                                
                                                     <button type="submit" class="btn btn-primary btn-user btn-block">Add Offer</button>
-                                                </form> 
+                                                </form>
+                                                <hr>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
             
                         </div>
             
                     </div>
             
                 </div>
+                <script src="addOffer.js"></script>
+                
+
+
+
+
                 <script>
                     document.getElementById("offerForm").addEventListener("submit", function(event) {
                         const departureDate = new Date(document.getElementById("departuredate").value);
